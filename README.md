@@ -5,6 +5,7 @@ Kafka生产者和消费者demo
 http://kafka.apache.org/documentation/#producerconfigs
 
 #生产者
+
  Properties props = new Properties();
  props.put("bootstrap.servers", "localhost:9092");
  props.put("acks", "all");
@@ -18,6 +19,7 @@ http://kafka.apache.org/documentation/#producerconfigs
  producer.close();
 
 #消费者
+
  Properties props = new Properties();
      props.setProperty("bootstrap.servers", "localhost:9092");
      props.setProperty("group.id", "test");
