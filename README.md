@@ -1,10 +1,11 @@
 # KafkaDemo
 Kafka生产者和消费者demo
 
-#Kafka配置属性
+# Kafka配置属性
+
 http://kafka.apache.org/documentation/#producerconfigs
 
-#生产者
+# 生产者
 
  Properties props = new Properties();
  props.put("bootstrap.servers", "localhost:9092");
@@ -18,7 +19,7 @@ http://kafka.apache.org/documentation/#producerconfigs
 
  producer.close();
 
-#消费者
+# 消费者
 
  Properties props = new Properties();
      props.setProperty("bootstrap.servers", "localhost:9092");
