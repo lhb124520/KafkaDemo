@@ -1,0 +1,19 @@
+service:
+  version: 1.0.0
+  nacos:
+    ip: 172.168.201.49
+    port: 8848
+
+spring:
+  application:
+    name: KafkaDemo
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        namespace: ac20be3e-4991-4f59-9684-60bd218c9e4b
+        server-addr: ${service.nacos.ip}:${service.nacos.port}
+        file-extension: yml
+        shared-dataids: datae-base.yml,datae-application-base.yml
+        refreshable-dataids: datae-base.yml,datae-application-base.yml
