@@ -24,7 +24,7 @@ public class TestKafkaConsumer {
     public static void main(String[] args) {
         Properties props = new Properties();
         props.setProperty("bootstrap.servers", "192.168.16.133:9092");
-        props.setProperty("group.id", "test");
+
         props.setProperty("enable.auto.commit", "true");
         props.setProperty("auto.commit.interval.ms", "1000");
         props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
