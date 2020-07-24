@@ -5,7 +5,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 import java.time.Duration;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 
 /**
@@ -19,11 +19,12 @@ public class TestKafkaConsumer {
 
     /**
      * 查看配置：http://kafka.apache.org/documentation/#producerconfigs
+     *
      * @param args
      */
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.setProperty("bootstrap.servers", "192.168.16.133:9092");
+        props.setProperty("bootstrap.servers", "132.121.132.219:9092");
         props.setProperty("group.id", "test-group");
         props.setProperty("enable.auto.commit", "true");
         props.setProperty("auto.commit.interval.ms", "1000");
@@ -32,13 +33,21 @@ public class TestKafkaConsumer {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 
-        consumer.subscribe(Arrays.asList("test", "bar"));
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
-            for (ConsumerRecord<String, String> record : records) {
-                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+        //需要订阅 Topic，subscribe() 方法接受一个主题列表作为参数：
+//        consumer.subscribe(Collections.singletonList("itmpAnalysisAuto"));
+        consumer.subscribe(Collections.singletonList("itmpLogAnalysis"));
+        try {
+            while (true) {
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, String> record : records) {
+                    if (record.value().contains("132.121.196.112")) {
+                        System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+                    }
+                }
             }
-
+        } finally {
+            // 关闭消费者,网络连接和 socket 也会随之关闭，并立即触发一次再均衡
+            consumer.close();
         }
     }
 }
