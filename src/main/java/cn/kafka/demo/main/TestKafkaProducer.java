@@ -1,5 +1,6 @@
 package cn.kafka.demo.main;
 
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -28,7 +29,12 @@ public class TestKafkaProducer {
         Producer<String, String> producer = new KafkaProducer<>(props);
 
         ProducerRecord<String, String> data = new ProducerRecord<>("test", "101888");
+        //同步发送
         producer.send(data);
+
+//        //异步发送
+//        ProducerCallback callback = new ProducerCallback();
+//        producer.send(data,callback);
 
         producer.close();
     }

@@ -35,14 +35,14 @@ public class TestKafkaConsumer {
 
         //需要订阅 Topic，subscribe() 方法接受一个主题列表作为参数：
 //        consumer.subscribe(Collections.singletonList("itmpAnalysisAuto"));
-        consumer.subscribe(Collections.singletonList("itmpLogAnalysis"));
+        consumer.subscribe(Collections.singletonList("itmpAnalysisAuto"));
         try {
             while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
                 for (ConsumerRecord<String, String> record : records) {
-                    if (record.value().contains("132.121.196.112")) {
+//                    if (record.value().contains("ping_result1")) {
                         System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
-                    }
+//                    }
                 }
             }
         } finally {
